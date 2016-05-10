@@ -3,6 +3,7 @@ package com.six15.testoverlay;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.PixelFormat;
 import android.opengl.GLSurfaceView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,10 +23,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         sv = (GLSurfaceView) findViewById(R.id.glSurfaceView);
+
         sv.setRenderer(new GLRenderer());
 
         ov = (SurfaceView)findViewById(R.id.ovSurface);
-
+        ov.setZOrderMediaOverlay(true);
+        SurfaceHolder sfhTrackHolder = ov.getHolder();
+        sfhTrackHolder.setFormat(PixelFormat.TRANSPARENT);
     }
 
     public void drawCircle(View view) {
@@ -36,8 +40,8 @@ public class MainActivity extends AppCompatActivity {
         int radius;
         radius = 100;
         Paint paint = new Paint();
-        paint.setStyle(Paint.Style.FILL);
         paint.setColor(Color.TRANSPARENT);
+        paint.setStyle(Paint.Style.FILL_AND_STROKE);
         c.drawPaint(paint);
         // Use Color.parseColor to define HTML colors
         paint.setColor(Color.WHITE);
